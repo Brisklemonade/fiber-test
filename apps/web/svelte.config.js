@@ -9,7 +9,6 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			pages: 'client',
 			fallback: 'index.html'
 		})
 	}

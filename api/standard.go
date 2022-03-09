@@ -5,13 +5,14 @@ import (
 )
 
 /**
-* This does legit nothing still figuring things out
+* JSON object that denotes a status, and sends a message
  */
-func Welcome(c *fiber.Ctx) interface {} {
-	welcome := "Welcome to the api"
-
-	return c.JSON(&fiber.Map{
-			"success": true,
-			"message": welcome,
-	})
+func Welcome(app fiber.App) {
+	app.Get("/api", func(c *fiber.Ctx) error {
+        
+        return c.JSON(&fiber.Map{
+            "success": true,
+            "message": "welcome",
+        })
+    })
 }

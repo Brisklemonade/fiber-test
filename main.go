@@ -1,7 +1,9 @@
 package main
 
 import (
+	"github.com/Brisklemonade/fiber-test/api"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -9,19 +11,15 @@ func main() {
     
     app := fiber.New()
 
-    app.Get("/api", func(c *fiber.Ctx) error {
-        
-        return c.JSON(&fiber.Map{
-            "success": true,
-            "message": "welcome",
-        })
-    })
+    app.Use(cors.New())
     
+    api.Welcome(*app)
+    // Retrieve static files and serve them on index route
     app.Static("/", "./apps/web/client")
-
+    // Get request to index | On request, serve index.html from client folder
     app.Get("/", func(c *fiber.Ctx) error {
         return c.SendFile(fullPath)
     })
 
-    app.Listen("localhost:3000")
+    app.Listen("localhost:8080")
 }

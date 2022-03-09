@@ -7,16 +7,20 @@ import (
 )
 
 func main() {
-    fullPath := "./apps/web/build/index.html"
-    
     app := fiber.New()
-
+    
+    /** Allow cross origin & things */
     app.Use(cors.New())
     
+    /** Initialize the api */
     api.Welcome(*app)
-    // Retrieve static files and serve them on index route
+    
+    /**
+    * Retrieve static files and serve them on index route
+    * Get request to index | On request, serve index.html from build folder
+    */
+    fullPath := "./apps/web/build/index.html"
     app.Static("/", "./apps/web/build")
-    // Get request to index | On request, serve index.html from build folder
     app.Get("/", func(c *fiber.Ctx) error {
         return c.SendFile(fullPath)
     })

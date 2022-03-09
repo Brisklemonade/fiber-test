@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-    fullPath := "./apps/web/client/index.html"
+    fullPath := "./apps/web/build/index.html"
     
     app := fiber.New()
 
@@ -15,8 +15,8 @@ func main() {
     
     api.Welcome(*app)
     // Retrieve static files and serve them on index route
-    app.Static("/", "./apps/web/client")
-    // Get request to index | On request, serve index.html from client folder
+    app.Static("/", "./apps/web/build")
+    // Get request to index | On request, serve index.html from build folder
     app.Get("/", func(c *fiber.Ctx) error {
         return c.SendFile(fullPath)
     })
